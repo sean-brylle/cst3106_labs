@@ -4,38 +4,33 @@ and details the font, and colors used within. The documentation also includes so
 
 ## **Header**
 
-- **Header Text Font:** `Garamond`
-- **Header Text Color:** `rgb(255, 255, 255)`
+- **Font Style:** `Garamond`
+- **Font Color:** `rgb(255, 255, 255)`
 - **Background:** An image of a sea
 - **Layout:** Centered located on top of the website
 - **Mock-up Screenshot:**
-![Header Mock-up](Header Banner.png)
-
+![Header Mock-up](./Header Banner.png)
 
 ## **Navigation Panel**
-- **Font:** `"Times New Roman", Times, serif`
-- **Headers:** `'Trebuchet MS', sans-serif`
-
-## **3. Components and Layout**
-### Header
-- **Design:** Centered text with a light grey background.
+- **Font Style:** `Garamond`
+- **Font color:** `rgb(0, 0, 0)`
+- **Background Color:** `rgba(163, 174, 193, 0.406)`
+- **Design:** Flexbox located in the middle towards the left
 - **Mock-up Screenshot:**
-![Header Mock-up](header.png)
+![Navigation Panel Mock-up](./Navigation.png)
 
-### Navigation
-- **Design:** Dark grey background with white text links.
+## **Body**
+- **Description:** Shows the preview of the labs
+- **Font Style:** `Helvetica`
+- **Font color:** `rgb(0, 0, 0)`
+- **Background Color:** `rgb(255, 255, 255)`
 - **Mock-up Screenshot:**
-![Nav Mock-up](navigation.png)
+![Body Mock-up](Body.png)
 
-### Content
-- **Design:** Centered section with light grey background.
+## **Footer**
+- **Font Style:** `Garamond`
+- **Font color:** `rgb(255, 255, 255)`
+- **Background Color:** `rgb(78, 83, 98)`
+- **Design:** Flexbox located in the bottom center
 - **Mock-up Screenshot:**
-![Content Mock-up](content.png)
-
-### Footer
-- **Design:** Centered text with a light grey background.
-- **Mock-up Screenshot:**
-![Footer Mock-up](footer.png)
-
-## **Conclusion**
-This documentation serves as a concise reference guide for the design system used in the portfolio project, aiming to facilitate development and maintain consistency in design throughout the project.
+![Footer Mock-up](./Footer.png)
