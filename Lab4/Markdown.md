@@ -9,7 +9,7 @@ and details the font, and colors used within. The documentation also includes so
 - **Background:** An image of a sea
 - **Layout:** Centered located on top of the website
 - **Mock-up Screenshot:**
-![Header Mock-up](./Header Banner.png)
+![Header Banner Mock-up](HeaderBanner.png)
 
 ## **Navigation Panel**
 - **Font Style:** `Garamond`
