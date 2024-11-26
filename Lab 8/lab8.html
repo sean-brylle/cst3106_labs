@@ -10,6 +10,7 @@
       crossorigin="anonymous"
     />
     <title>Dice Roller</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
       /* Custom styles for die and dots */
       .die {
@@ -63,108 +64,121 @@
       </button>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
     <script>
       $(document).ready(function () {
+        // Track the total rotation of the die
         let currentRotation = 0;
 
+        // Add click event listener to the roll button
         $("#rollDiceButton").on("click", function () {
+          // Disable the button during animation to prevent spam clicking
+          $(this).prop("disabled", true);
+
+          // Add a visual feedback for button click
+          $(this).css("transform", "scale(0.95)");
+          setTimeout(() => {
+            $(this).css("transform", "scale(1)");
+          }, 150);
+
           rollDie();
         });
 
         function rollDie() {
+          // Generate random number between 1 and 6
           let diceValue = Math.floor(Math.random() * 6) + 1;
 
-          // Calculate rotation to ensure it ends up aligned (multiple of 180)
+          // Calculate rotation to ensure die ends up aligned (multiple of 180)
+          // This prevents the die from stopping at odd angles
           let rotationToComplete = 180 - (currentRotation % 180);
           currentRotation += 180 + rotationToComplete;
 
-          $(".die").attr("data-value", diceValue);
+          // Store the die element to avoid multiple jQuery selections
+          const $die = $(".die");
 
-          $(".die")
-            .css("transition", "transform 1s ease")
-            .css("transform", `rotate(${currentRotation}deg)`);
+          // Add data attribute for the current value
+          $die.attr("data-value", diceValue);
 
-          $(".dot").remove();
+          // Add animation effects
+          $die.css({
+            transition: "all 1s cubic-bezier(0.17, 0.67, 0.83, 0.67)", // Custom easing for more natural movement
+            transform: `rotate(${currentRotation}deg) scale(1.1)`, // Add slight scale effect during rotation
+            "box-shadow": "0 5px 15px rgba(0,0,0,0.2)", // Enhanced shadow during animation
+          });
 
-          switch (diceValue) {
-            case 1:
-              $(".die").append(
-                '<div class="dot" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>'
-              );
-              break;
-            case 2:
-              $(".die").append(
-                '<div class="dot" style="top: 25%; left: 25%;"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="bottom: 25%; right: 25%;"></div>'
-              );
-              break;
-            case 3:
-              $(".die").append(
-                '<div class="dot" style="top: 25%; left: 25%;"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="bottom: 25%; right: 25%;"></div>'
-              );
-              break;
-            case 4:
-              $(".die").append(
-                '<div class="dot" style="top: 25%; left: 25%;"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="top: 25%; right: 25%;"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="bottom: 25%; left: 25%;"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="bottom: 25%; right: 25%;"></div>'
-              );
-              break;
-            case 5:
-              $(".die").append(
-                '<div class="dot" style="top: 25%; left: 25%;"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="top: 25%; right: 25%;"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="bottom: 25%; left: 25%;"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="bottom: 25%; right: 25%;"></div>'
-              );
-              break;
-            case 6:
-              $(".die").append(
-                '<div class="dot" style="top: 25%; left: 25%;"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="top: 25%; right: 25%;"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="top: 50%; left: 25%; transform: translate(0, -50%);"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="top: 50%; right: 25%; transform: translate(0, -50%);"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="bottom: 25%; left: 25%;"></div>'
-              );
-              $(".die").append(
-                '<div class="dot" style="bottom: 25%; right: 25%;"></div>'
-              );
-              break;
-          }
+          // Reset scale and adjust shadow after animation
+          setTimeout(() => {
+            $die.css({
+              transform: `rotate(${currentRotation}deg) scale(1)`,
+              "box-shadow": "0 3px 10px rgba(0,0,0,0.1)",
+            });
+
+            // Re-enable the button
+            $("#rollDiceButton").prop("disabled", false);
+          }, 1000);
+
+          // Remove existing dots with fade effect
+          $(".dot").fadeOut(200, function () {
+            $(this).remove();
+            // Add new dots after old ones are removed
+            addDots(diceValue, $die);
+          });
+        }
+
+        // Separate function to handle adding dots
+        function addDots(diceValue, $die) {
+          // Configuration for dot positions
+          const dotConfigs = {
+            1: [
+              {
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              },
+            ],
+            2: [
+              { top: "25%", left: "25%" },
+              { bottom: "25%", right: "25%" },
+            ],
+            3: [
+              { top: "25%", left: "25%" },
+              { top: "50%", left: "50%", transform: "translate(-50%, -50%)" },
+              { bottom: "25%", right: "25%" },
+            ],
+            4: [
+              { top: "25%", left: "25%" },
+              { top: "25%", right: "25%" },
+              { bottom: "25%", left: "25%" },
+              { bottom: "25%", right: "25%" },
+            ],
+            5: [
+              { top: "25%", left: "25%" },
+              { top: "25%", right: "25%" },
+              { top: "50%", left: "50%", transform: "translate(-50%, -50%)" },
+              { bottom: "25%", left: "25%" },
+              { bottom: "25%", right: "25%" },
+            ],
+            6: [
+              { top: "25%", left: "25%" },
+              { top: "25%", right: "25%" },
+              { top: "50%", left: "25%", transform: "translate(0, -50%)" },
+              { top: "50%", right: "25%", transform: "translate(0, -50%)" },
+              { bottom: "25%", left: "25%" },
+              { bottom: "25%", right: "25%" },
+            ],
+          };
+
+          // fade in dots based on the dice value
+          dotConfigs[diceValue].forEach((config) => {
+            $("<div>")
+              .addClass("dot")
+              .css({
+                ...config,
+                position: "absolute",
+                opacity: 0,
+              })
+              .appendTo($die)
+              .animate({ opacity: 1 }, 200);
+          });
         }
       });
     </script>

@@ -1,0 +1,101 @@
+$(document).ready(function () {
+        let currentRotation = 0;
+
+        $("#rollDiceButton").on("click", function () {
+          rollDie();
+        });
+
+        function rollDie() {
+          let diceValue = Math.floor(Math.random() * 6) + 1;
+
+          // Calculate rotation to ensure it ends up aligned (multiple of 180)
+          let rotationToComplete = 180 - (currentRotation % 180);
+          currentRotation += 180 + rotationToComplete;
+
+          $(".die").attr("data-value", diceValue);
+
+          $(".die")
+            .css("transition", "transform 1s ease")
+            .css("transform", `rotate(${currentRotation}deg)`);
+
+          $(".dot").remove();
+
+          switch (diceValue) {
+            case 1:
+              $(".die").append(
+                '<div class="dot" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>'
+              );
+              break;
+            case 2:
+              $(".die").append(
+                '<div class="dot" style="top: 25%; left: 25%;"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="bottom: 25%; right: 25%;"></div>'
+              );
+              break;
+            case 3:
+              $(".die").append(
+                '<div class="dot" style="top: 25%; left: 25%;"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="bottom: 25%; right: 25%;"></div>'
+              );
+              break;
+            case 4:
+              $(".die").append(
+                '<div class="dot" style="top: 25%; left: 25%;"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="top: 25%; right: 25%;"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="bottom: 25%; left: 25%;"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="bottom: 25%; right: 25%;"></div>'
+              );
+              break;
+            case 5:
+              $(".die").append(
+                '<div class="dot" style="top: 25%; left: 25%;"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="top: 25%; right: 25%;"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="bottom: 25%; left: 25%;"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="bottom: 25%; right: 25%;"></div>'
+              );
+              break;
+            case 6:
+              $(".die").append(
+                '<div class="dot" style="top: 25%; left: 25%;"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="top: 25%; right: 25%;"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="top: 50%; left: 25%; transform: translate(0, -50%);"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="top: 50%; right: 25%; transform: translate(0, -50%);"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="bottom: 25%; left: 25%;"></div>'
+              );
+              $(".die").append(
+                '<div class="dot" style="bottom: 25%; right: 25%;"></div>'
+              );
+              break;
+          }
+        }
+      });
