@@ -1,0 +1,17 @@
+{
+  "name": "cst3106_labs",
+  "version": "1.0.0",
+  "main": "Server.js",
+  "scripts": {
+    "dev": "nodemon Server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

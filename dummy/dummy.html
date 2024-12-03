@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Document</title>
+    <link rel="stylesheet" href="dummy.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body class="p-3 mb-2 bg-primary rgb(26, 26, 40)">
+    <header
+      class="d-flex justify-content-center align-items-center header-container"
+    >
+      <h1>Yahtzee Game</h1>
+    </header>
+    <section>
+      <!-- Score Card -->
+      <div
+        class="d-flex flex-column justify-content-center align-items-center scoreboard-container"
+      >
+        <h2>Score Card</h2>
+        <div class="section-title">Upper Section</div>
+        <div class="score-row">
+          <div class="score-label">Ones</div>
+          <input type="text" class="score-input" />
+        </div>
+        <div class="score-row">
+          <div class="score-label">Twos</div>
+          <input type="text" class="score-input" />
+        </div>
+        <div class="score-row">
+          <div class="score-label">Threes</div>
+          <input type="text" class="score-input" />
+        </div>
+        <div class="score-row">
+          <div class="score-label">Fours</div>
+          <input type="text" class="score-input" />
+        </div>
+        <div class="score-row">
+          <div class="score-label">Fives</div>
+          <input type="text" class="score-input" />
+        </div>
+        <div class="score-row">
+          <div class="score-label">Sixes</div>
+          <input type="text" class="score-input" />
+        </div>
+        <div class="score-row">
+          <div class="score-label">Bonus</div>
+          <input type="text" class="score-input" />
+        </div>
+
+        <div class="section-title">Lower Section</div>
+        <div class="score-row">
+          <div class="score-label">Three-of-a-kind</div>
+          <input type="text" class="score-input" />
+        </div>
+        <div class="score-row">
+          <div class="score-label">Four-of-a-kind</div>
+          <input type="text" class="score-input" />
+        </div>
+        <div class="score-row">
+          <div class="score-label">Full House</div>
+          <input type="text" class="score-input" />
+        </div>
+        <div class="score-row">
+          <div class="score-label">Small Straight</div>
+          <input type="text" class="score-input" />
+        </div>
+        <div class="score-row">
+          <div class="score-label">Large Straight</div>
+          <input type="text" class="score-input" />
+        </div>
+        <div class="score-row">
+          <div class="score-label">Yahtzee</div>
+          <input type="text" class="score-input" />
+        </div>
+        <div class="score-row">
+          <div class="score-label">Chance</div>
+          <input type="text" class="score-input" />
+        </div>
+
+        <div class="points-card">
+          <div class="label">Points</div>
+          <div class="score">0</div>
+        </div>
+      </div>
+
+      <!-- Game -->
+      <div>
+        <div>
+          <div>
+            <h2>Round</h2>
+            <div>
+              <p>1</p>
+            </div>
+            <p>Rounds Remaining</p>
+            <p>12</p>
+          </div>
+
+          <div>
+            <p>Hold the dice you want to keep.<br />You have 2 rolls left.</p>
+          </div>
+
+          <div>
+            <img src="dice1.png" alt="Dice showing 1" />
+            <img src="dice2.png" alt="Dice showing 2" />
+            <img src="dice3.png" alt="Dice showing 3" />
+            <img src="dice4.png" alt="Dice showing 4" />
+            <img src="dice5.png" alt="Dice showing 5" />
+          </div>
+
+          <div>
+            <button>ROLL DICE</button>
+            <button>START NEW GAME</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

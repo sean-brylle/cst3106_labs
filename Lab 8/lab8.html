@@ -12,7 +12,6 @@
     <title>Dice Roller</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
-      /* Custom styles for die and dots */
       .die {
         width: 150px;
         height: 150px;
@@ -66,67 +65,58 @@
 
     <script>
       $(document).ready(function () {
-        // Track the total rotation of the die
-        let currentRotation = 0;
-
-        // Add click event listener to the roll button
         $("#rollDiceButton").on("click", function () {
-          // Disable the button during animation to prevent spam clicking
-          $(this).prop("disabled", true);
+          const $button = $(this);
+          const $dice = $(".die");
 
-          // Add a visual feedback for button click
-          $(this).css("transform", "scale(0.95)");
-          setTimeout(() => {
-            $(this).css("transform", "scale(1)");
-          }, 150);
+          $button.prop("disabled", true);
 
-          rollDie();
+          rollDie($dice, $button);
         });
 
-        function rollDie() {
-          // Generate random number between 1 and 6
-          let diceValue = Math.floor(Math.random() * 6) + 1;
+        function rollDie($dice, $button) {
+          let animationCount = 0;
+          const totalAnimations = 10;
+          const animationInterval = 250;
 
-          // Calculate rotation to ensure die ends up aligned (multiple of 180)
-          // This prevents the die from stopping at odd angles
-          let rotationToComplete = 180 - (currentRotation % 180);
-          currentRotation += 180 + rotationToComplete;
-
-          // Store the die element to avoid multiple jQuery selections
-          const $die = $(".die");
-
-          // Add data attribute for the current value
-          $die.attr("data-value", diceValue);
-
-          // Add animation effects
-          $die.css({
-            transition: "all 1s cubic-bezier(0.17, 0.67, 0.83, 0.67)", // Custom easing for more natural movement
-            transform: `rotate(${currentRotation}deg) scale(1.1)`, // Add slight scale effect during rotation
-            "box-shadow": "0 5px 15px rgba(0,0,0,0.2)", // Enhanced shadow during animation
+          // Set initial animation colors
+          $dice.css({
+            background: "linear-gradient(145deg, #ff4d4d, #b30000)",
+            transition: "background-color 0.3s ease",
           });
 
-          // Reset scale and adjust shadow after animation
-          setTimeout(() => {
-            $die.css({
-              transform: `rotate(${currentRotation}deg) scale(1)`,
-              "box-shadow": "0 3px 10px rgba(0,0,0,0.1)",
-            });
-
-            // Re-enable the button
-            $("#rollDiceButton").prop("disabled", false);
-          }, 1000);
-
-          // Remove existing dots with fade effect
-          $(".dot").fadeOut(200, function () {
-            $(this).remove();
-            // Add new dots after old ones are removed
-            addDots(diceValue, $die);
+          $dice.each(function () {
+            $(this).empty();
           });
+
+          const rollInterval = setInterval(() => {
+            if (animationCount < totalAnimations) {
+              $dice.each(function () {
+                const randomValue = Math.floor(Math.random() * 6) + 1;
+                $(this).empty();
+                addDots(randomValue, $(this), true);
+              });
+              animationCount++;
+            } else {
+              clearInterval(rollInterval);
+
+              $dice.css({
+                background: "linear-gradient(145deg, #dddbdd, #fff)",
+                transition: "background-color 0.3s ease",
+              });
+
+              $dice.each(function () {
+                const finalValue = Math.floor(Math.random() * 6) + 1;
+                $(this).empty();
+                addDots(finalValue, $(this), false);
+              });
+
+              $button.prop("disabled", false);
+            }
+          }, animationInterval);
         }
 
-        // Separate function to handle adding dots
-        function addDots(diceValue, $die) {
-          // Configuration for dot positions
+        function addDots(diceValue, $die, isAnimating) {
           const dotConfigs = {
             1: [
               {
@@ -167,17 +157,21 @@
             ],
           };
 
-          // fade in dots based on the dice value
-          dotConfigs[diceValue].forEach((config) => {
-            $("<div>")
-              .addClass("dot")
-              .css({
-                ...config,
-                position: "absolute",
-                opacity: 0,
-              })
-              .appendTo($die)
-              .animate({ opacity: 1 }, 200);
+          const dots = dotConfigs[diceValue];
+          dots.forEach((dotPosition) => {
+            const $dot = $("<div>").addClass("dot");
+
+            $dot.css({
+              position: "absolute",
+              width: "20px",
+              height: "20px",
+              backgroundColor: isAnimating ? "white" : "black",
+              borderRadius: "50%",
+              transition: "background-color 0.3s ease",
+              ...dotPosition,
+            });
+
+            $die.append($dot);
           });
         }
       });

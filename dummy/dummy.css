@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto+Slab:wght@100..900&display=swap");
+
+* {
+  font-family: "Roboto Slab", serif;
+  color: white;
+  background-color: #2d304e;
+}
+
+body {
+  background-color: rgb(26, 26, 40);
+}
+
+h1 {
+  background-color: #2d304e;
+}
+
+.header-container {
+  height: 100px;
+  padding: 10px;
+  background-color: #2d304e;
+  box-shadow: 5px 5px 12px black;
+}
+
+.scoreboard-container {
+  display: flex;
+  background-color: #2d304e;
+}
